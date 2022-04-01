@@ -128,11 +128,12 @@ router.put("/:id", newPics.single("image"), requiresToken, async (req, res) => {
   }
 });
 
-// DELETE /users/:id -- DESTROY user document with :id and its subdocs
+
 // DELETE /users/:id -- DESTROY user document with :id and its subdocs
 router.delete("/:id", requiresToken, async (req, res) => {
   try {
     const foundUser = await db.User.findById(req.params.id);
+
     if (res.locals.user.id === foundUser.id) {
       foundUser.remove();
       res.status(200).json({ msg: "user successfully deleted" });
